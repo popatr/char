@@ -4,20 +4,55 @@
 [ext_resource type="Texture2D" uid="uid://buo70hk3mfygq" path="res://icon.svg" id="2_gawog"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jnt3c"]
-size = Vector2(1205, 67)
+size = Vector2(1224.5, 67.75)
 
 [node name="Node2D" type="Node2D"]
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_6tjhr")]
+position = Vector2(1390, 194)
+floor_max_angle = 1.49749
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(532, 610)
+position = Vector2(541, 594)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(3, 5)
+position = Vector2(3, 4.875)
 shape = SubResource("RectangleShape2D_jnt3c")
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-position = Vector2(5, 7)
+position = Vector2(2, 7)
 scale = Vector2(9.48438, 0.53125)
 texture = ExtResource("2_gawog")
+metadata/_edit_lock_ = true
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(1107, 504)
+scale = Vector2(-0.16, 3.52)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(3, 4.875)
+shape = SubResource("RectangleShape2D_jnt3c")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
+position = Vector2(2, 7)
+scale = Vector2(9.48438, 0.53125)
+texture = ExtResource("2_gawog")
+metadata/_edit_lock_ = true
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(1415, 681)
+rotation = -2.32749
+scale = Vector2(-0.584585, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(3, 4.875)
+shape = SubResource("RectangleShape2D_jnt3c")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3"]
+position = Vector2(2, 7)
+scale = Vector2(9.48438, 0.53125)
+texture = ExtResource("2_gawog")
+metadata/_edit_lock_ = true
