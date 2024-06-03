@@ -42,8 +42,8 @@ texture = ExtResource("2_gawog")
 metadata/_edit_lock_ = true
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
-position = Vector2(1415, 681)
-rotation = -2.32749
+position = Vector2(1345, 730)
+rotation = -2.09143
 scale = Vector2(-0.584585, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]

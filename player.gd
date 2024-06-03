@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 
 const SPEED = 300.0
-const xaccel = 15
+const xaccel = 600
 const JUMP_VELOCITY = -600.0
 const MAX_GLIDE_DOWN = 80
 const MAX_AIR_JUMPS = 0
@@ -15,7 +15,6 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _physics_process(delta):
-		
 	var glide=MAX_GLIDE_DOWN
 	
 	if Input.is_action_pressed("ui_down"):
@@ -28,15 +27,7 @@ func _physics_process(delta):
 	else:
 		onFloorTime = Time.get_ticks_msec()
 		air_jumps=MAX_AIR_JUMPS
-
-	var collision: KinematicCollision2D=get_last_slide_collision()
-	if collision:
-		var normal = collision.get_normal()
-		var proj = normal.project(Vector2.UP)
-		if (proj<Vector2.ZERO):
-			velocity.y=400*abs(normal.x)
-			velocity.x=normal.x*40
-			
+		
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept"):
 		jumpRequestedTime = Time.get_ticks_msec()
@@ -48,16 +39,12 @@ func _physics_process(delta):
 			if(air_jumps > 0):
 				air_jumps -= 1
 				Jump(MAX_AIR_JUMPS - air_jumps)
-			
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("ui_left", "ui_right")
-	velocity.x = move_toward(velocity.x, direction*SPEED,xaccel)
-			
-	var v=velocity
+	velocity.x = move_toward(velocity.x, direction*SPEED, xaccel*delta)
 	move_and_slide()
-	
 
 const JUMP_REQUEST_RECENT_ENOUGH = 500
 func JumpRequestedRecentlyEnough():
