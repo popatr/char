@@ -9,6 +9,8 @@ const MAX_AIR_JUMPS:int = 0
 var air_jumps:int=MAX_AIR_JUMPS
 var jumpRequestedTime:int=0
 var physicsInfo:PhysicsInfo = PhysicsInfo.new()
+var goalAngle:float = 0
+var goalSkew:float = 0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -45,7 +47,12 @@ func _physics_process(delta):
 	var direction: float = Input.get_axis("ui_left", "ui_right")
 	velocity.x = move_toward(velocity.x, GetTargetSpeed(direction, SPEED), GetAccel(direction, xaccel, delta))
 	move_and_slide()
-
+	
+	goalAngle = 0 if !OnFloorRecentlyEnough() else physicsInfo.floorNormal.angle() + PI/2
+	goalSkew = (velocity.x / SPEED) * PI/12
+	rotation = move_toward(rotation, goalAngle, 5*delta)
+	skew = move_toward(skew, goalSkew, 5*delta)
+	
 const JUMP_REQUEST_RECENT_ENOUGH: int = 500
 func JumpRequestedRecentlyEnough() -> bool:
 	return Time.get_ticks_msec() - jumpRequestedTime < JUMP_REQUEST_RECENT_ENOUGH
@@ -86,7 +93,7 @@ func GetAccel(direction:float, accel:float, delta:float) -> float:
 		
 func CollectPhysicsInfo():
 	physicsInfo.onFloor = is_on_floor()
-	physicsInfo.floorNormal = Vector2.ZERO if !physicsInfo.onFloor else get_floor_normal()
+	physicsInfo.floorNormal = physicsInfo.floorNormal if !physicsInfo.onFloor else get_floor_normal()
 	if physicsInfo.onFloor: physicsInfo.onFloorTime = Time.get_ticks_msec()
 	physicsInfo.lastSlideCollision = get_last_slide_collision()
 	physicsInfo.downHillDirection = 0 if !physicsInfo.onFloor else 1 if physicsInfo.floorNormal.x > 0 else -1
