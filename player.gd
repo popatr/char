@@ -26,7 +26,7 @@ func _physics_process(delta):
 	# Add the gravity.
 	if not physicsInfo.onFloor:
 		velocity.y += gravity * delta
-		velocity.y = min(velocity.y, glide)
+		#velocity.y = min(velocity.y, glide)
 	else:
 		air_jumps=MAX_AIR_JUMPS
 		

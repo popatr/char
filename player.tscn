@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://player.gd" id="1_j3hqq"]
 [ext_resource type="Texture2D" uid="uid://buo70hk3mfygq" path="res://icon.svg" id="2_34tln"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3d6dn"]
-size = Vector2(124, 125)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2uk43"]
+radius = 60.0
+height = 123.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 floor_stop_on_slope = false
@@ -16,6 +17,6 @@ texture = ExtResource("2_34tln")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 0.5)
-shape = SubResource("RectangleShape2D_3d6dn")
+shape = SubResource("CapsuleShape2D_2uk43")
 
 [node name="Camera2D" type="Camera2D" parent="."]
